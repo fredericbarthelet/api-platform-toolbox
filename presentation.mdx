@@ -1,7 +1,47 @@
-# This is the title of my deck
+import { CodeSurfer } from "mdx-deck-code-surfer"
+
+# API Platform toolbox
 
 ---
 
-# About Me
+<CodeSurfer
+  title="Serialisation de base"
+  code={require("!raw-loader!./code_exemples/BaseSerializationDog.php").default}
+  lang="go"
+  showNumbers={false}
+  dark={false}
+  steps={[
+      { notes: "Serialisation d'un chien"},
+      { lines: [8], notes: "Déclarer la ressource à API Platform" },
+      { lines: [9, 10], notes: "Specifier les groupe de serialisation" },
+      { lines: [17, 18], notes: "Utiliser des constantes de classe" },
+      { lines: [22, 24, 28, 30, 34, 36], notes: "Attribuer les groupes aux attributs" },
+  ]}
+/>
 
 ---
+
+<CodeSurfer
+  title="Un champs particulier"
+  code={require("!raw-loader!./code_exemples/SwitchInputSerializationDog.php").default}
+  lang="go"
+  showNumbers={false}
+  dark={false}
+  steps={[
+      { lines: [38, 39, 40, 41, 42], notes: "Ajout d'une propriété pour un groupe d'utilisateur restreint" },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="La solution"
+  code={require("!raw-loader!./code_exemples/SwitchInputSerializationDogSolution.php").default}
+  lang="go"
+  showNumbers={false}
+  dark={false}
+  steps={[
+      { lines: [18], notes: "Nouveau groupe de serialization" },
+      { lines: [41, 43], notes: "Ajout de ce groupe à la propriété voulue" },
+  ]}
+/>
