@@ -1,0 +1,14 @@
+{
+  "name": "api-platform-toolbox",
+  "version": "1.0.0",
+  "description": "API Platform toolbox presentation in MDX",
+  "main": "index.js",
+  "scripts": {
+    "start": "mdx-deck presentation.mdx"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mdx-deck": "^3.0.8"
+  }
+}
