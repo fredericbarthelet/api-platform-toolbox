@@ -138,7 +138,7 @@ How to expose computed data
 
 ### Practical case
 
-Expose computed full name
+Expose computed fullName
 
 ```json
 {
@@ -230,3 +230,65 @@ Expose validation status of the form
       { range: [69, 74], notes: "Dismiss support for normalized objects"},
   ]}
 />
+
+---
+
+### Problematic
+
+How to filter getCollection on ACL basis
+
+---
+
+### Explication
+
+getItem operations easily deniable by ACL voters implementation.
+Depending on context/object requested, you can allow/deny access to object specific route (i.e.: my.app/object/12)
+
+getCollection operation is not filtered by default, meaning object you would not have access to are exposed by route my.app/objects
+
+---
+
+### Practical case
+
+As a user I can fetch all my dogs on my.app/dogs
+As a doctor I can fetch all dogs on my.app/dogs
+
+---
+
+<CodeSurfer
+  title="Item ACL"
+  code={require("!raw-loader!./code_exemples/BaseACLDog.php").default}
+  lang="php"
+  showNumbers={false}
+  theme={oceanicNext}
+  steps={[
+      { notes: "Dog entity"},
+      { range: [32, 36], notes: "Add ownership of Dog"},
+      { range: [12, 17], notes: "Configure ACL for item operation"},
+      { range: [9, 11], notes: "ACL for collection operation is not enough"},
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Doctrine extension"
+  code={require("!raw-loader!./code_exemples/DoctrineExtension.php").default}
+  lang="php"
+  showNumbers={false}
+  theme={oceanicNext}
+  steps={[
+      { notes: "New ACLFilterDogExtension service"},
+      { lines: [12, 13], notes: "Implement QueryCollectionExtensionInterface"},
+      { range: [25, 30], notes: "Method applyToCollection signature"},
+      { range: [31, 33], notes: "No further modification if not retrieving Dogs"},
+      { range: [35, 37], notes: "No filtering if user is doctor"},
+      { lines: [39, 41], notes: "Filtering on other cases"},
+      { range: [44, 54], notes: "Write custom queryBuilder modifier"},
+      { lines: [46], notes: "Retrieve root alias from query builder"},
+      { range: [48, 50], notes: "Add where clause"},
+      { range: [51, 53], notes: "Add current_user value"},
+  ]}
+/>
+
+---
