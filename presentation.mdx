@@ -1,4 +1,5 @@
 import { CodeSurfer } from "mdx-deck-code-surfer"
+import oceanicNext from "prism-react-renderer/themes/oceanicNext"
 
 # API Platform toolbox
 
@@ -7,9 +8,9 @@ import { CodeSurfer } from "mdx-deck-code-surfer"
 <CodeSurfer
   title="Serialisation de base"
   code={require("!raw-loader!./code_exemples/BaseSerializationDog.php").default}
-  lang="go"
+  lang="php"
   showNumbers={false}
-  dark={false}
+  theme={oceanicNext}
   steps={[
       { notes: "Serialisation d'un chien"},
       { lines: [8], notes: "Déclarer la ressource à API Platform" },
@@ -24,11 +25,11 @@ import { CodeSurfer } from "mdx-deck-code-surfer"
 <CodeSurfer
   title="Un champs particulier"
   code={require("!raw-loader!./code_exemples/SwitchInputSerializationDog.php").default}
-  lang="go"
+  lang="php"
   showNumbers={false}
-  dark={false}
+  theme={oceanicNext}
   steps={[
-      { lines: [38, 39, 40, 41, 42], notes: "Ajout d'une propriété pour un groupe d'utilisateur restreint" },
+      { range: [38, 42], notes: "Ajout d'une propriété pour un groupe d'utilisateur restreint" },
   ]}
 />
 
@@ -37,11 +38,36 @@ import { CodeSurfer } from "mdx-deck-code-surfer"
 <CodeSurfer
   title="La solution"
   code={require("!raw-loader!./code_exemples/SwitchInputSerializationDogSolution.php").default}
-  lang="go"
+  lang="php"
   showNumbers={false}
-  dark={false}
+  theme={oceanicNext}
   steps={[
       { lines: [18], notes: "Nouveau groupe de serialization" },
       { lines: [41, 43], notes: "Ajout de ce groupe à la propriété voulue" },
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Custom SerialiaserContextBuilder"
+  code={require("!raw-loader!./code_exemples/ContextBuilder.php").default}
+  lang="php"
+  showNumbers={false}
+  theme={oceanicNext}
+  steps={[
+      { notes: "Ecriture d'un context builder custom"},
+      { lines: [10], notes: "Créer un service qui implémente SerializerContextBuilderInterface" },
+      { lines: [30], notes: "Méthode createFromRequest" },
+      { range: [31, 34], notes: "Signature de la méthode" },
+      { range: [12, 16], lines: [23, 26], notes: "Injection du contextBuilder"},
+      { range: [35, 39], notes: "Construction de context classique"},
+      { range: [41, 46], notes: "Le context, quesako ?"},
+      { lines: [48], notes: "La bonne ressource ?"},
+      { lines: [49], notes: "Le bon user ?"},
+      { range: [17, 20], lines: [24, 27], notes: "Injection du security"},
+      { lines: [50], notes: "Normalisation ou denormalisation ?"},
+      { range: [52, 54], notes: "Ajout du groupe de serialisation"},
+      { lines: [56], notes: "Retourner le context modifié"},
   ]}
 />
