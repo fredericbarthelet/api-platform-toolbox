@@ -1,7 +1,63 @@
 import { CodeSurfer } from "mdx-deck-code-surfer"
 import oceanicNext from "prism-react-renderer/themes/oceanicNext"
+import { themes } from 'mdx-deck'
+export const theme = themes.future
 
-# API Platform toolbox
+# API Platform
+
+## Tips & Tricks
+
+---
+
+### Problematic
+
+How to change API signature based on request context
+
+---
+
+### Practical case
+
+Expose dog vitals only if I'm a doctor
+
+<div
+  style={{
+    display: 'flex'
+  }}
+>
+  <div
+    style={{
+      margin: '20px'
+    }}
+  >
+
+  User API response
+  ```json
+  {
+    name: 'Tobby',
+    age: 8,
+    color: 'brown'
+  }
+  ```
+
+  </div>
+  <div
+    style={{
+      margin: '20px'
+    }}
+  >
+
+  Doctor API response
+  ```json
+  {
+    name: 'Tobby',
+    age: 8,
+    color: 'brown',
+    lastVaccinationDate: 12/08/2019
+  }
+  ```
+
+  </div>
+</div>
 
 ---
 
@@ -50,7 +106,7 @@ import oceanicNext from "prism-react-renderer/themes/oceanicNext"
 ---
 
 <CodeSurfer
-  title="Custom SerialiaserContextBuilder"
+  title="Decorated SerialiazerContextBuilder"
   code={require("!raw-loader!./code_exemples/ContextBuilder.php").default}
   lang="php"
   showNumbers={false}
@@ -69,5 +125,108 @@ import oceanicNext from "prism-react-renderer/themes/oceanicNext"
       { lines: [50], notes: "Normalisation ou denormalisation ?"},
       { range: [52, 54], notes: "Ajout du groupe de serialisation"},
       { lines: [56], notes: "Retourner le context modifié"},
+  ]}
+/>
+
+---
+
+### Problematic
+
+How to expose computed data
+
+---
+
+### Practical case
+
+Expose computed full name
+
+```json
+{
+  firstName: 'Frédéric',
+  lastName: 'Barthelet',
+  age: 30,
+  fullName: 'Frédéric Barthelet',
+}
+```
+
+---
+
+<CodeSurfer
+  title="Magic getter & Serialization"
+  code={require("!raw-loader!./code_exemples/BaseSerializationForm.php").default}
+  lang="php"
+  showNumbers={false}
+  theme={oceanicNext}
+  steps={[
+      { notes: "Class Form"},
+      { range: [16, 34], notes: "As usual, group annotations on class privates"},
+      { range: [36, 42], notes: "Use magic getter to expose computed data"},
+  ]}
+/>
+
+---
+
+### Problematic
+
+How to expose computed data requiring external service
+
+---
+
+### Practical case
+
+Expose validation status of the form
+
+```json
+{
+  firstname: 'Frédéric',
+  lastname: 'Barthelet',
+  age: 30,
+  fullName: 'Frédéric Barthelet',
+  complete: true
+}
+```
+
+---
+
+<CodeSurfer
+  title="Validation"
+  code={require("!raw-loader!./code_exemples/BaseSerializationFormWithValidationGroups.php").default}
+  lang="php"
+  showNumbers={false}
+  theme={oceanicNext}
+  steps={[
+      { notes: "Adding validation"},
+      { lines: [6], notes: "Import constraint assertion annotations"},
+      { lines: [19], notes: "Define validation group constant"},
+      { lines: [21], notes: "Define extra attribute name"},
+      { ranges: [[26, 30], [35, 39], [44, 48]], notes: "Use constraints with this validation group"},
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Custom Serializer"
+  code={require("!raw-loader!./code_exemples/FormCustomSerializer.php").default}
+  lang="php"
+  showNumbers={false}
+  theme={oceanicNext}
+  steps={[
+      { notes: "Custom serializer"},
+      { lines: [11, 12], notes: "Implement necessary interfaces"},
+      { lines: [14], notes: "Use SerializerAwareTrait to ease up SerializerAwareInterface implementation"},
+      { range: [31, 35], lines: [63], notes: "2 methods required by NormalizerInterface"},
+      { lines: [63], notes: "returns bool denoting if this normalizer is appropriate"},
+      { range: [64, 67], lines: [76], notes: "dismiss if not Form, otherwise OK"},
+      { range: [31, 35], notes: "returns normalized array"},
+      { range: [21, 29], notes: "Inject validator service"},
+      { range: [38, 44], notes: "Use validator with given validation group"},
+      { lines: [45], notes: "Check if ConstraintViolationListInterface length is null"},
+      { range: [47, 57], notes: "Normalize object with appropriate Normalizers"},
+      { lines: [58], notes: "Setting extra attribute"},
+      { lines: [60], notes: "Return normalized form"},
+      { ranges: [[16, 19], [69, 74]], lines: [36], notes: "What about those lines ?"},
+      { lines: [36], notes: "Marking object as normalized"},
+      { range: [69, 74], notes: "Dismiss support for normalized objects"},
   ]}
 />
