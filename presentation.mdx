@@ -62,44 +62,44 @@ Expose dog vitals only if I'm a doctor
 ---
 
 <CodeSurfer
-  title="Serialisation de base"
+  title="Serialization groups"
   code={require("!raw-loader!./code_exemples/BaseSerializationDog.php").default}
   lang="php"
   showNumbers={false}
   theme={oceanicNext}
   steps={[
-      { notes: "Serialisation d'un chien"},
-      { lines: [8], notes: "Déclarer la ressource à API Platform" },
-      { lines: [9, 10], notes: "Specifier les groupe de serialisation" },
-      { lines: [17, 18], notes: "Utiliser des constantes de classe" },
-      { lines: [22, 24, 28, 30, 34, 36], notes: "Attribuer les groupes aux attributs" },
+      { notes: "Dog Serialization"},
+      { lines: [8], notes: "Declare this entity as API Platform resource" },
+      { lines: [9, 10], notes: "Specify Serialization group" },
+      { lines: [17, 18], notes: "Use class constants" },
+      { lines: [22, 24, 28, 30, 34, 36], notes: "Assign groups on attributes" },
   ]}
 />
 
 ---
 
 <CodeSurfer
-  title="Un champs particulier"
+  title="High privileges field"
   code={require("!raw-loader!./code_exemples/SwitchInputSerializationDog.php").default}
   lang="php"
   showNumbers={false}
   theme={oceanicNext}
   steps={[
-      { range: [38, 42], notes: "Ajout d'une propriété pour un groupe d'utilisateur restreint" },
+      { range: [38, 42], notes: "Add a property only some users can see" },
   ]}
 />
 
 ---
 
 <CodeSurfer
-  title="La solution"
+  title="Privileges based serialization groups"
   code={require("!raw-loader!./code_exemples/SwitchInputSerializationDogSolution.php").default}
   lang="php"
   showNumbers={false}
   theme={oceanicNext}
   steps={[
-      { lines: [18], notes: "Nouveau groupe de serialization" },
-      { lines: [41, 43], notes: "Ajout de ce groupe à la propriété voulue" },
+      { lines: [18], notes: "New Serialization group" },
+      { lines: [41, 43], notes: "Add this group to the new attribute" },
   ]}
 />
 
@@ -112,19 +112,19 @@ Expose dog vitals only if I'm a doctor
   showNumbers={false}
   theme={oceanicNext}
   steps={[
-      { notes: "Ecriture d'un context builder custom"},
-      { lines: [10], notes: "Créer un service qui implémente SerializerContextBuilderInterface" },
-      { lines: [30], notes: "Méthode createFromRequest" },
-      { range: [31, 34], notes: "Signature de la méthode" },
-      { range: [12, 16], lines: [23, 26], notes: "Injection du contextBuilder"},
-      { range: [35, 39], notes: "Construction de context classique"},
-      { range: [41, 46], notes: "Le context, quesako ?"},
-      { lines: [48], notes: "La bonne ressource ?"},
-      { lines: [49], notes: "Le bon user ?"},
-      { range: [17, 20], lines: [24, 27], notes: "Injection du security"},
-      { lines: [50], notes: "Normalisation ou denormalisation ?"},
-      { range: [52, 54], notes: "Ajout du groupe de serialisation"},
-      { lines: [56], notes: "Retourner le context modifié"},
+      { notes: "Decorate ContextBuilder"},
+      { lines: [10], notes: "Implement SerializerContextBuilderInterface" },
+      { lines: [30], notes: "Method createFromRequest" },
+      { range: [31, 34], notes: "Method signature" },
+      { range: [12, 16], lines: [23, 26], notes: "Inject ContextBuilder"},
+      { range: [35, 39], notes: "Build context"},
+      { range: [41, 46], notes: "Context object"},
+      { lines: [48], notes: "Check on resource"},
+      { lines: [49], notes: "Check on user"},
+      { range: [17, 20], lines: [24, 27], notes: "Inject security"},
+      { lines: [50], notes: "Normalizing or Denormalizing ?"},
+      { range: [52, 54], notes: "Add Serialization group"},
+      { lines: [56], notes: "Return updated context"},
   ]}
 />
 
@@ -288,6 +288,71 @@ As a doctor I can fetch all dogs on my.app/dogs
       { lines: [46], notes: "Retrieve root alias from query builder"},
       { range: [48, 50], notes: "Add where clause"},
       { range: [51, 53], notes: "Add current_user value"},
+  ]}
+/>
+
+---
+
+### Problematic
+
+How to filter getCollection items on complex expression
+
+---
+
+<CodeSurfer
+  title="API Platform filters"
+  code={require("!raw-loader!./code_exemples/BaseFilterDog.php").default}
+  lang="php"
+  showNumbers={false}
+  theme={oceanicNext}
+  steps={[
+      { notes: "Dog entity"},
+      { range: [5, 8], notes: "Use APIFilter annotations"},
+      { lines: [12], notes: "Order filter: my.app/dogs?order[name]=asc"},
+      { lines: [13], notes: "Search filter: my.app/dogs?name=tobby"},
+      { lines: [14], notes: "Exist filter: my.app/dogs?owner[exists]=true"},
+      { lines: [12, 14], notes: "Combined filters: my.app/dogs?order[name]=asc&owner[exists]=true"},
+  ]}
+/>
+
+---
+
+my.app/dogs?archivedDate[exists]=true||owner.archivedDate[exists]=true
+
+---
+
+<CodeSurfer
+  title="Doctrine Filter"
+  code={require("!raw-loader!./code_exemples/DoctrineFilter.php").default}
+  lang="php"
+  showNumbers={false}
+  theme={oceanicNext}
+  steps={[
+      { notes: "Filter service"},
+      { lines: [9, 10], notes: "Extend AbstractContextAwareFilter"},
+      { lines: [12], notes: "Give your filter a name"},
+      { range: [14, 21], notes: "Implement filterProperty"},
+      { range: [22, 26], notes: "Do nothing if not current filter"},
+      { lines: [28], notes: "Parse requested filter value"},
+      { range: [85, 96], notes: "Parse requested filter value"},
+      { range: [29, 31], notes: "If not bool, do nothing"},
+      { range: [33, 38], notes: "Join on required table"},
+      { range: [40, 48], notes: "Filter if only non archived are requested"},
+      { range: [50, 59], notes: "Filter if only archived are requested"},
+  ]}
+/>
+
+---
+
+<CodeSurfer
+  title="Doctrine Filter Implementation"
+  code={require("!raw-loader!./code_exemples/AdvancedFilterDog.php").default}
+  lang="php"
+  showNumbers={false}
+  theme={oceanicNext}
+  steps={[
+      { notes: "Dog entity"},
+      { range: [16, 19], lines: [9], notes: "Use new APIFilter"},
   ]}
 />
 
