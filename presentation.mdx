@@ -10,11 +10,18 @@ export const theme = themes.future
 
 ---
 
-CRUD is poor
+API Platform Core is an easy-to-use and powerful library to create hypermedia-driven REST APIs.
 
 ---
 
-<Image src='https://api-platform.com/static/f5bf57af8c8a3275d8ba1c9ced6e890d/664bf/SerializerWorkflow.png' />
+For Rapid Application Development, convenience and prototyping, API Platform allows you to build a working and fully featured CRUD API in minutes.
+This approach is super-convenient and efficient, but is probably not a good idea for non-CRUD and/or large systems.
+
+---
+
+## CRUD is poor
+
+Here's how to improve it
 
 ---
 
@@ -67,6 +74,10 @@ Expose dog vitals only if I'm a doctor
 
   </div>
 </div>
+
+---
+
+<Image src='https://api-platform.com/static/f5bf57af8c8a3275d8ba1c9ced6e890d/664bf/SerializerWorkflow.png' />
 
 ---
 
@@ -366,3 +377,12 @@ my.app/dogs?archivedDate[exists]=true||owner.archivedDate[exists]=true
 />
 
 ---
+
+## What's next ?
+
+- Exit CRUD logic -> Split API and ORM resources
+  - DataPersisterInterface
+  - DataProviderInterface
+- Implement CQRS
+  - DataTransformerInterface
+  - MessageHandlerInterface
