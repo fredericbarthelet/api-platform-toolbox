@@ -33,7 +33,7 @@ extends AbstractContextAwareFilter
         $joinAliasName = $queryNameGenerator->generateJoinAlias('user');
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder->innerJoin(
-            sprintf('%s.company', $rootAlias),
+            sprintf('%s.user', $rootAlias),
             $joinAliasName
         );
 

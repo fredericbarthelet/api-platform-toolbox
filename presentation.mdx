@@ -1,7 +1,7 @@
 import { CodeSurfer } from "mdx-deck-code-surfer"
 import oceanicNext from "prism-react-renderer/themes/oceanicNext"
 import { Image } from 'rebass'
-import { themes } from 'mdx-deck'
+import { themes, Notes } from 'mdx-deck'
 export const theme = themes.future
 
 # API Platform
@@ -14,14 +14,21 @@ API Platform Core is an easy-to-use and powerful library to create hypermedia-dr
 
 ---
 
-For Rapid Application Development, convenience and prototyping, API Platform allows you to build a working and fully featured CRUD API in minutes.
-This approach is super-convenient and efficient, but is probably not a good idea for non-CRUD and/or large systems.
-
----
-
 ## CRUD is poor
 
 Here's how to improve it
+
+<Notes>
+For Rapid Application Development, convenience and prototyping, API Platform allows you to build a working and fully featured CRUD API in minutes.
+This approach is super-convenient and efficient, but is probably not a good idea for non-CRUD and/or large systems.
+</Notes>
+
+---
+
+- SerializerContextBuilder Decorator
+- Normalizer Implementation
+- Doctrine Extension Implementation
+- Doctrine Filter Implementation
 
 ---
 
@@ -150,6 +157,10 @@ Expose dog vitals only if I'm a doctor
 
 ---
 
+How did you do it ?
+
+---
+
 ### Problematic
 
 How to expose computed data
@@ -183,6 +194,10 @@ Expose computed fullName
       { range: [36, 42], notes: "Use magic getter to expose computed data"},
   ]}
 />
+
+---
+
+How did you do it ?
 
 ---
 
@@ -250,6 +265,10 @@ Expose validation status of the form
       { range: [69, 74], notes: "Dismiss support for normalized objects"},
   ]}
 />
+
+---
+
+How did you do it ?
 
 ---
 
@@ -375,6 +394,10 @@ my.app/dogs?archivedDate[exists]=true||owner.archivedDate[exists]=true
       { range: [16, 19], lines: [9], notes: "Use new APIFilter"},
   ]}
 />
+
+---
+
+How did you do it ?
 
 ---
 
