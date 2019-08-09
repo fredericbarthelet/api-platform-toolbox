@@ -2,11 +2,22 @@ import { CodeSurfer } from "mdx-deck-code-surfer"
 import oceanicNext from "prism-react-renderer/themes/oceanicNext"
 import { Image } from 'rebass'
 import { themes, Notes } from 'mdx-deck'
+import { Split } from "mdx-deck/layouts"
 export const theme = themes.future
 
 # API Platform
 
-## Tips & Tricks
+## Controller-less custom CRUD
+
+---
+
+### Frédéric Barthelet
+
+Architect developer @ Theodo
+
+Twitter: @bartheletf
+
+Github: @fredericbarthelet
 
 ---
 
@@ -25,10 +36,21 @@ This approach is super-convenient and efficient, but is probably not a good idea
 
 ---
 
-- SerializerContextBuilder Decorator
-- Normalizer Implementation
-- Doctrine Extension Implementation
-- Doctrine Filter Implementation
+## Solution
+
+Hooking into API Platform and Symfony requests lifecycle
+
+---
+
+<Image src='./assets/APIPlatformExtension.png' />
+
+---
+
+
+- API - SerializerContextBuilder Decorator
+- SF - Normalizer Implementation
+- API - Doctrine Extension Implementation
+- API - Doctrine Filter Implementation
 
 ---
 
@@ -157,10 +179,6 @@ Expose dog vitals only if I'm a doctor
 
 ---
 
-How did you do it ?
-
----
-
 ### Problematic
 
 How to expose computed data
@@ -265,10 +283,6 @@ Expose validation status of the form
       { range: [69, 74], notes: "Dismiss support for normalized objects"},
   ]}
 />
-
----
-
-How did you do it ?
 
 ---
 
@@ -397,10 +411,6 @@ my.app/dogs?archivedDate[exists]=true||owner.archivedDate[exists]=true
 
 ---
 
-How did you do it ?
-
----
-
 ## What's next ?
 
 - Exit CRUD logic -> Split API and ORM resources
@@ -409,3 +419,7 @@ How did you do it ?
 - Implement CQRS
   - DataTransformerInterface
   - MessageHandlerInterface
+
+---
+
+  ## Thank you
